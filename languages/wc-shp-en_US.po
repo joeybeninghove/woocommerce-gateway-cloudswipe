@@ -1,0 +1,74 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2015-08-17 17:09-0500\n"
+"PO-Revision-Date: 2015-08-17 17:09-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.5\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_n;_x\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:8
+msgid "Proceed to secure payment"
+msgstr "Proceed to secure payment"
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:9
+msgid "Secure Hosted Payments"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:10
+msgid "Securely accept credit card payments - PCI Compliant"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:26
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:28
+msgid "Enable Secure Hosted Payments"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:32
+msgid "Title"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:34
+msgid "The title the user sees for this payment method during checkout"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:35
+msgid "Credit Card"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:39
+msgid "Description"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:41
+msgid "The description the user sees for this payment method during checkout"
+msgstr ""
+
+#: includes/class-wc-gateway-secure-hosted-payments.php:42
+msgid "Pay securely with your credit card"
+msgstr ""
+
+#: woocommerce-gateway-secure-hosted-payments.php:98
+msgid ""
+"Secure Hosted Payments for WooCommerce requires the WooCommerce plugin to be "
+"installed and activated."
+msgstr ""
+
+#: woocommerce-gateway-secure-hosted-payments.php:121
+#: woocommerce-gateway-secure-hosted-payments.php:134
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#~ msgid "xDescription"
+#~ msgstr "Tell me what you mean, bro."
