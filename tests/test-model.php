@@ -8,7 +8,7 @@ class ModelTest extends WP_UnitTestCase {
             'name' => '8GB USB Drive',
             'total' => 12.50
         );
-        $model = new Shp_Model( $data );
+        $model = new Cs_Model( $data );
         $data = $model->get_data();
         $this->assertArrayHasKey( 'name', $data );
         $this->assertArrayHasKey( 'total', $data );
@@ -23,7 +23,7 @@ class ModelTest extends WP_UnitTestCase {
             'total' => 0
         );
         $name = 'Example Product Name';
-        $model = new Shp_Model( $data );
+        $model = new Cs_Model( $data );
 
         $model->name = $name;
 

@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Validator {
+class Cs_Validator {
 
     protected $errors;
 

@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Model {
+class Cs_Model {
 
     protected $data;
     protected $errors;
@@ -37,7 +37,7 @@ class Shp_Model {
     }
 
     public function validate() {
-        $validator = new Shp_Validator( $this->data );
+        $validator = new Cs_Validator( $this->data );
 
         if ( is_array( $this->validation_rules ) ) {
             foreach ( $this->validation_rules as $field => $rules ) {

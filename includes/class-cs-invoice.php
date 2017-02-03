@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Invoice extends Shp_Model {
+class Cs_Invoice extends Cs_Model {
 
 
     /**
@@ -41,26 +41,26 @@ class Shp_Invoice extends Shp_Model {
     }
 
     public function add_line_item( $options = array() ) {
-        $line_item = new Shp_Line_Item( $options );
+        $line_item = new Cs_Line_Item( $options );
         if ( $line_item->validate() ) {
             $this->data['content']['line_items'][] = $line_item;
         }
     }
 
     public function add_line_total( $name, $total) {
-        $line_total = new Shp_Line_Total( $name, $total );
+        $line_total = new Cs_Line_Total( $name, $total );
         if ( $line_total->validate() ) {
             $this->data['content']['line_totals'][] = $line_total;
         }
     }
 
     public function add_address($attrs = array(), $type = 'billing' ) {
-        $address = new Shp_Address( $attrs );
+        $address = new Cs_Address( $attrs );
         if ( $address->validate() ) {
             $this->data['content'][$type . '_address'] = $address;
         }
         else {
-            Shp_Log::write( 'Invalid address not added to invoice: ' . print_r( $address->get_data(), true ) );
+            Cs_Log::write( 'Invalid address not added to invoice: ' . print_r( $address->get_data(), true ) );
         }
     }
 
@@ -69,7 +69,7 @@ class Shp_Invoice extends Shp_Model {
     }
 
     public function create( $secret_key ) {
-        $api = new Shp_Api();
+        $api = new Cs_Api();
         $payment_url = $api->create_invoice( $this->data, $secret_key );
         return $payment_url;
     }

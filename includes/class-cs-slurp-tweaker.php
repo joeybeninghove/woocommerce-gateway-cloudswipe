@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Slurp_Tweaker {
+class Cs_Slurp_Tweaker {
 
     protected static $instance;
 
@@ -25,9 +25,9 @@ class Shp_Slurp_Tweaker {
     /**
      * Allow slurps to change the title of the slurped page
      *
-     * The slurp request can pass the query string parameter shp-title to
+     * The slurp request can pass the query string parameter cs-title to
      * change the displayed page title from "Cart" to a custom value. This
-     * filter is only run on the cart page content area. If the shp-title
+     * filter is only run on the cart page content area. If the cs-title
      * parameter is not in the query string, the title is not modified.
      *
      * @param  string $title
@@ -36,8 +36,8 @@ class Shp_Slurp_Tweaker {
      */
     public function filter_slurp_title( $title, $id = null ) {
         if ( is_cart() && in_the_loop() ) {
-            if ( isset( $_GET['shp-title'] ) ) {
-                $title = $_GET['shp-title'];
+            if ( isset( $_GET['cs-title'] ) ) {
+                $title = $_GET['cs-title'];
             }
         }
 
@@ -46,4 +46,4 @@ class Shp_Slurp_Tweaker {
 
 }
 
-Shp_Slurp_Tweaker::instance();
+Cs_Slurp_Tweaker::instance();

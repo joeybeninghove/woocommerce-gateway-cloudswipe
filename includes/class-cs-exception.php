@@ -1,5 +1,5 @@
 <?php
-class Shp_Exception extends Exception {
+class Cs_Exception extends Exception {
 
     /**
      * Alias getMessage as get_message to keep naming

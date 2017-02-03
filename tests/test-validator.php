@@ -5,7 +5,7 @@ class ValidatorTest extends WP_UnitTestCase {
     /** @test */
     public function it_should_return_an_array_with_one_validation_item() {
         $rule_string = 'required';
-        $validator = new Shp_Validator();
+        $validator = new Cs_Validator();
         $validations = $validator->parse_rules( $rule_string );
         $validation = array_shift( $validations );
         $this->assertEquals( 'required', $validation->function );
@@ -14,7 +14,7 @@ class ValidatorTest extends WP_UnitTestCase {
     /** @test */
     public function it_should_return_an_array_with_one_validation_item_with_parameters() {
         $rule_string = 'in:billing,shipping';
-        $validator = new Shp_Validator();
+        $validator = new Cs_Validator();
         $validations = $validator->parse_rules( $rule_string );
         $validation = array_shift( $validations );
         $this->assertEquals( 'in', $validation->function );
@@ -25,7 +25,7 @@ class ValidatorTest extends WP_UnitTestCase {
     /** @test */
     public function it_should_return_an_array_with_two_validation_items() {
         $rule_string = 'required|in:billing,shipping';
-        $validator = new Shp_Validator();
+        $validator = new Cs_Validator();
         $validations = $validator->parse_rules( $rule_string );
 
         // First validation item should be 'required' with no parameters
@@ -44,7 +44,7 @@ class ValidatorTest extends WP_UnitTestCase {
     public function it_should_require_a_required_field() {
         $data = array( 'name' => '' );
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $is_valid = $validator->check( 'name', 'required' );
         $this->assertFalse( $is_valid );
 
@@ -58,7 +58,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $field = 'type';
         $data = array( $field => 'something_incorrect' );
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $is_valid = $validator->check( $field, 'in:billing,shipping' );
         $this->assertFalse( $is_valid );
 
@@ -71,7 +71,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $field = 'type';
         $data = array( $field => 'billing' );
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $is_valid = $validator->check( $field, 'in:billing,shipping' );
         $this->assertTrue( $is_valid );
 
@@ -85,7 +85,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $data = array( $field => '' );
         $error_message = 'You must identify yourself!';
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $validator->check( $field, "required|message:$error_message" );
 
         $errors = $validator->get_errors();
@@ -98,7 +98,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $data = array( $field => 'Lee' );
         $error_message = 'You must identify yourself!';
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $validator->check( $field, "required|message:$error_message" );
 
         $errors = $validator->get_errors();
@@ -109,7 +109,7 @@ class ValidatorTest extends WP_UnitTestCase {
     public function it_should_pass_validation_when_other_validation_has_already_failed() {
         $data = array( 'name' => '', 'email' => 'test@person.com' );
 
-        $validator = new Shp_Validator( $data );
+        $validator = new Cs_Validator( $data );
         $name_is_valid = $validator->check( 'name', 'required' );
         $this->assertFalse( $name_is_valid );
 
@@ -127,7 +127,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $data = array( $field => '' );
         $error_message = "$field must be a number";
 
-        $validator = new Shp_Validator( $data);
+        $validator = new Cs_Validator( $data);
         $validator->check( $field, "numeric|message:$error_message" );
 
         $errors = $validator->get_errors();
@@ -140,7 +140,7 @@ class ValidatorTest extends WP_UnitTestCase {
         $field = 'total';
         $data = array( $field => 10.50 );
 
-        $validator = new Shp_Validator( $data);
+        $validator = new Cs_Validator( $data);
         $validator->check( $field, "numeric" );
 
         $errors = $validator->get_errors();

@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Api {
+class Cs_Api {
 
     /**
      * Return an array with basic authorization headers
@@ -9,7 +9,7 @@ class Shp_Api {
      * @return array
      */
     public function basic_auth_args( $secret_key ) {
-        Shp_Log::write( "Creating auth headers with secret key: $secret_key" );
+        Cs_Log::write( "Creating auth headers with secret key: $secret_key" );
 
         $auth = array( 'Authorization' => 'Basic ' . base64_encode( $secret_key . ':' ) );
         $args = array( 'headers' => $auth );
@@ -26,7 +26,7 @@ class Shp_Api {
      */
     public function find_order_id_by_invoice_number( $invoice_number, $secret_key ) {
         $wc_order_id = null;
-        $invoice_url = Shp_Env::invoices() . $invoice_number;
+        $invoice_url = Cs_Env::invoices() . $invoice_number;
         $response = wp_remote_get( $invoice_url, $this->basic_auth_args( $secret_key ) );
 
         if ( ! is_wp_error( $response ) ) {
@@ -37,19 +37,19 @@ class Shp_Api {
                     $wc_order_id = $content['meta_data']['wc_order_id'];
                 }
                 else {
-                    Shp_Log::write( 'WooCommerce order id not found in invoice: ' . print_r( $body, true ) );
+                    Cs_Log::write( 'WooCommerce order id not found in invoice: ' . print_r( $body, true ) );
                 }
             }
             else {
-                Shp_Log::write( 'WooCommerce order content not found in invoice: ' . print_r( $body, true ) );
+                Cs_Log::write( 'WooCommerce order content not found in invoice: ' . print_r( $body, true ) );
             }
         }
         else {
-            Shp_Log::write( 'Unable to look up invoice by order number: ' . $invoice_url . "\n" . $response->get_error_message() );
+            Cs_Log::write( 'Unable to look up invoice by order number: ' . $invoice_url . "\n" . $response->get_error_message() );
         }
 
         if ( ! isset( $wc_order_id ) || $wc_order_id < 1 ) {
-            throw new Shp_Exception( "Unable to look up order number by invoice number: $invoice_number" . "\n" . $invoice_url );
+            throw new Cs_Exception( "Unable to look up order number by invoice number: $invoice_number" . "\n" . $invoice_url );
         }
 
         return $wc_order_id;
@@ -60,19 +60,19 @@ class Shp_Api {
      *
      * @params array $order_data
      * @params string $secret_key
-     * @return string Secure Hosted Payments URL to payment page
+     * @return string CloudSwipe URL to payment page
      */
     public function create_invoice( $order_data, $secret_key ) {
         $args = $this->basic_auth_args( $secret_key );
         $invoice_json = json_encode( $this->flatten_data( $order_data ) );
         $args['body'] = $invoice_json;
 
-        Shp_Log::write( 'Sending these args over the API: ' . print_r( $args, true ) );
+        Cs_Log::write( 'Sending these args over the API: ' . print_r( $args, true ) );
 
-        $response = wp_remote_post( Shp_Env::invoices(), $args );
+        $response = wp_remote_post( Cs_Env::invoices(), $args );
 
         if ( ! is_wp_error( $response ) ) {
-            Shp_Log::write( 'Create invoice response: ' . print_r( $response, true ) );
+            Cs_Log::write( 'Create invoice response: ' . print_r( $response, true ) );
             if ( $response['response']['code'] == 201 ) {
                 $body = json_decode( $response['body'], true );
                 return $body['payment_url'];
@@ -80,7 +80,7 @@ class Shp_Api {
         }
         else {
             $error = $response->get_error_message();
-            throw new Shp_Exception("Unable to create invoice on Secure Hosted Payments: $error");
+            throw new Cs_Exception("Unable to create invoice on CloudSwipe: $error");
         }
     }
 

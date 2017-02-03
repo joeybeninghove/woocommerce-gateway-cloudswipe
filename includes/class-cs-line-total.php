@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Line_Item extends Shp_Model {
+class Cs_Line_Total extends Cs_Model {
 
     /**
      * __construct
@@ -10,21 +10,19 @@ class Shp_Line_Item extends Shp_Model {
      *
      * @param array $attributes
      */
-    public function __construct( $attrs = array() ) {
+    public function __construct( $name, $total ) {
         $data = array (
-            'name'     => '',
-            'sku'      => '',
-            'quantity' => '',
-            'total'    => ''
+            'name'  => $name,
+            'total' => $total
         );
-        $data = array_merge ( $data, $attrs );
 
         $validation_rules = array(
-           'name' => 'required',
-           'total' => 'required'
+            'name'  => 'required',
+            'total' => 'required'
         );
 
         parent::__construct( $data, $validation_rules );
     }
 
 }
+

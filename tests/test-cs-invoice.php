@@ -1,6 +1,6 @@
 <?php
 
-class ShpInvoiceTest extends WP_UnitTestCase {
+class CsInvoiceTest extends WP_UnitTestCase {
 
     /** @test */
     public function it_validates_an_invoice () {
@@ -10,7 +10,7 @@ class ShpInvoiceTest extends WP_UnitTestCase {
     }
 
     private function build_invoice () {
-        $invoice = new Shp_Invoice();
+        $invoice = new Cs_Invoice();
         $invoice->first_name = 'John';
         $invoice->last_name = 'Doe';
         $invoice->email = 'john.doe@reality66.com';

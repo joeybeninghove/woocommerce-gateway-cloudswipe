@@ -1,6 +1,6 @@
 <?php
 
-class Shp_Address extends Shp_Model {
+class Cs_Address extends Cs_Model {
 
     /**
      * __construct

@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name: Secure Hosted Payments for WooCommerce
-Plugin URI: http://securehostedpayments.com
+Plugin Name: CloudSwipe
+Plugin URI: https://cloudswipe.com
 Description: Accept credit card payments securely on your WooCommerce store
-Version: 1.0.2
-Author: Reality66
-Author URI: http://www.reality66.com
+Version: 1.0.0
+Author: CloudSwipe
+Author URI: https://cloudswipe.com
 
 -------------------------------------------------------------------------
-Copyright 2016  Reality66
+Copyright 2017  Reality66
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,34 +28,25 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-if ( ! class_exists('WC_Secure_Hosted_Payments') ) {
+if ( ! class_exists('WC_CloudSwipe') ) {
 
-    // Determin the path to the plugin file
+    // Determine the path to the plugin file
     $plugin_file = __FILE__;
     if ( isset ( $plugin ) ) { $plugin_file = $plugin; }
     elseif ( isset ( $mu_plugin ) ) { $plugin_file = $mu_plugin; }
     elseif ( isset( $network_plugin ) ) { $plugin_file = $network_plugin; }
 
     // Define constants
-    define( 'WCSHP_VERSION_NUMBER', '1.0.2' );
-    define( 'WCSHP_PLUGIN_FILE', $plugin_file );
-    define( 'WCSHP_PATH', WP_PLUGIN_DIR . '/' . basename(dirname($plugin_file)) . '/' );
-    define( 'WCSHP_URL',  WP_PLUGIN_URL . '/' . basename(dirname($plugin_file)) . '/' );
-    define( 'WCSHP_DEBUG', false );
-
-    // Register kernl update management
-    require_once 'plugin_update_check.php';
-    $kernl = new PluginUpdateChecker_2_0 (
-       'https://kernl.us/api/v1/updates/56d0b2be97e281532fb39916/',
-       __FILE__,
-       'woocommerce-gateway-secure-hosted-payments',
-       1
-    );
+    define( 'WCCS_VERSION_NUMBER', '1.0.2' );
+    define( 'WCCS_PLUGIN_FILE', $plugin_file );
+    define( 'WCCS_PATH', WP_PLUGIN_DIR . '/' . basename(dirname($plugin_file)) . '/' );
+    define( 'WCCS_URL',  WP_PLUGIN_URL . '/' . basename(dirname($plugin_file)) . '/' );
+    define( 'WCCS_DEBUG', false );
 
     /**
      * The main plugin class should not be extended
      */
-    final class WC_Secure_Hosted_Payments {
+    final class WC_CloudSwipe {
 
         protected $dependency_check = false;
         protected static $instance;
@@ -85,7 +76,7 @@ if ( ! class_exists('WC_Secure_Hosted_Payments') ) {
         }
 
         public function add_gateway( $methods ) {
-            $methods[] = 'WC_Gateway_Secure_Hosted_Payments';
+            $methods[] = 'WC_Gateway_CloudSwipe';
             return $methods;
         }
 
@@ -104,7 +95,7 @@ if ( ! class_exists('WC_Secure_Hosted_Payments') ) {
         public function dependency_notice() {
             ?>
             <div class="error">
-                <p><?php _e( 'Secure Hosted Payments for WooCommerce requires the WooCommerce plugin to be installed and activated.', 'wc-shp' ); ?></p>
+                <p><?php _e( 'CloudSwipe for WooCommerce requires the WooCommerce plugin to be installed and activated.', 'wc-cs' ); ?></p>
             </div>
             <?php
         }
@@ -113,10 +104,10 @@ if ( ! class_exists('WC_Secure_Hosted_Payments') ) {
          * Load the plugin text domain for translation.
          */
         public function load_plugin_textdomain() {
-            $locale = apply_filters( 'plugin_locale', get_locale(), 'wc-shp' );
+            $locale = apply_filters( 'plugin_locale', get_locale(), 'wc-cs' );
             $language_path = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
 
-            load_plugin_textdomain( 'wc-shp', false, $language_path );
+            load_plugin_textdomain( 'wc-cs', false, $language_path );
         }
 
         /**
@@ -146,21 +137,21 @@ if ( ! class_exists('WC_Secure_Hosted_Payments') ) {
         }
 
         private function includes() {
-            include_once WCSHP_PATH . 'includes/class-wc-gateway-secure-hosted-payments.php';
-            include_once WCSHP_PATH . 'includes/class-shp-model.php';
-            include_once WCSHP_PATH . 'includes/class-shp-validator.php';
+            include_once WCCS_PATH . 'includes/class-wc-gateway-cloudswipe.php';
+            include_once WCCS_PATH . 'includes/class-cs-model.php';
+            include_once WCCS_PATH . 'includes/class-cs-validator.php';
 
-            include_once WCSHP_PATH . 'includes/class-shp-api.php';
-            include_once WCSHP_PATH . 'includes/class-shp-address.php';
-            include_once WCSHP_PATH . 'includes/class-shp-exception.php';
-            include_once WCSHP_PATH . 'includes/class-shp-invoice.php';
-            include_once WCSHP_PATH . 'includes/class-shp-line-item.php';
-            include_once WCSHP_PATH . 'includes/class-shp-line-total.php';
-            include_once WCSHP_PATH . 'includes/class-shp-log.php';
-            include_once WCSHP_PATH . 'includes/class-shp-env.php';
-            include_once WCSHP_PATH . 'includes/class-shp-slurp-tweaker.php';
+            include_once WCCS_PATH . 'includes/class-cs-api.php';
+            include_once WCCS_PATH . 'includes/class-cs-address.php';
+            include_once WCCS_PATH . 'includes/class-cs-exception.php';
+            include_once WCCS_PATH . 'includes/class-cs-invoice.php';
+            include_once WCCS_PATH . 'includes/class-cs-line-item.php';
+            include_once WCCS_PATH . 'includes/class-cs-line-total.php';
+            include_once WCCS_PATH . 'includes/class-cs-log.php';
+            include_once WCCS_PATH . 'includes/class-cs-env.php';
+            include_once WCCS_PATH . 'includes/class-cs-slurp-tweaker.php';
         }
     }
 }
 
-add_action( 'plugins_loaded', array( 'WC_Secure_Hosted_Payments', 'instance' ) );
+add_action( 'plugins_loaded', array( 'WC_CloudSwipe', 'instance' ) );
