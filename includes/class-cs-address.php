@@ -1,45 +1,37 @@
 <?php
 
-class Cs_Address extends Cs_Model {
+class Cs_Address {
+    public $name, $company, $line1, $line2,
+        $city, $state, $zip, $country, $phone;
 
-    /**
-     * __construct
-     *
-     * Optionally set the attributes of the line item by passing
-     * an assoc array of values to overwrite the default values.
-     *
-     * The default type of billing can be set to shipping.
-     *
-     * @param array $data
-     */
-    public function __construct( $attrs = array() ) {
+    public static function build_from_wc_order( $wc_order, $address_type ) {
+        $cs_address = new static();
+        $wc_address = $wc_order->get_address( $address_type );
 
-        $data = array (
-            'first_name'  => '',
-            'last_name'   => '',
-            'company'     => '',
-            'address_1'   => '',
-            'address_2'   => '',
-            'city'        => '',
-            'state'       => '',
-            'postal_code' => '',
-            'country'     => '',
-            'phone'       => '',
-            'email'       => '',
-            'type'        => 'billing',
-        );
-        $data = array_merge ( $data, $attrs );
+        $cs_address->name = $wc_order->get_formatted_billing_full_name();
+        $cs_address->company = $wc_address['company'];
+        $cs_address->line1 = $address['address_1'];
+        $cs_address->line2 = $address['address_2'];
+        $cs_address->city = $address['city'];
+        $cs_address->state = $address['state'];
+        $cs_address->zip = $address['postcode'];
+        $cs_address->country = $address['country'];
+        $cs_address->phone = $address['phone'];
 
-        $validation_rules = array(
-            'first_name'  => 'required',
-            'last_name'   => 'required',
-            'address_1'   => 'required',
-            'postal_code' => 'required',
-            'type'        => 'required|in:billing,shipping'
-
-        );
-
-        parent::__construct( $data, $validation_rules );
+        return $cs_address;
     }
 
+    public function toArray() {
+        return array(
+            'name' => $this->name,
+            'company' => $this->company,
+            'line1' => $this->line1,
+            'line2' => $this->line2,
+            'city' => $this->city,
+            'state' => $this->state,
+            'zip' => $this->zip,
+            'country' => $this->country,
+            'phone' => $this->phone
+        );
+    }
 }

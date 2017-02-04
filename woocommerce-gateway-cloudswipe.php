@@ -137,19 +137,18 @@ if ( ! class_exists('WC_CloudSwipe') ) {
         }
 
         private function includes() {
-            include_once WCCS_PATH . 'includes/class-wc-gateway-cloudswipe.php';
-            include_once WCCS_PATH . 'includes/class-cs-model.php';
-            include_once WCCS_PATH . 'includes/class-cs-validator.php';
-
-            include_once WCCS_PATH . 'includes/class-cs-api.php';
             include_once WCCS_PATH . 'includes/class-cs-address.php';
+            include_once WCCS_PATH . 'includes/class-cs-customer.php';
+            include_once WCCS_PATH . 'includes/class-cs-env.php';
             include_once WCCS_PATH . 'includes/class-cs-exception.php';
             include_once WCCS_PATH . 'includes/class-cs-invoice.php';
-            include_once WCCS_PATH . 'includes/class-cs-line-item.php';
-            include_once WCCS_PATH . 'includes/class-cs-line-total.php';
+            include_once WCCS_PATH . 'includes/class-cs-line-items.php';
+            include_once WCCS_PATH . 'includes/class-cs-line-totals.php';
             include_once WCCS_PATH . 'includes/class-cs-log.php';
-            include_once WCCS_PATH . 'includes/class-cs-env.php';
+            include_once WCCS_PATH . 'includes/class-cs-metadata.php';
+            include_once WCCS_PATH . 'includes/class-cs-price.php';
             include_once WCCS_PATH . 'includes/class-cs-slurp-tweaker.php';
+            include_once WCCS_PATH . 'includes/class-wc-gateway-cloudswipe.php';
         }
     }
 }

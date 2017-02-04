@@ -21,8 +21,9 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
         // Define values set by the user
         $this->title       = $this->get_option( 'title' );
         $this->description = $this->get_option( 'description' );
-    }
 
+        Cs_Invoice::auth( $this->settings['secret_key'] );
+    }
 
     public function init_form_fields() {
         $this->form_fields = array(
@@ -57,132 +58,44 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
     }
 
     public function process_payment( $order_id ) {
-        $wc_order = wc_get_order( $order_id );
+        try {
+            $wc_order = wc_get_order( $order_id );
+            $cs_customer = Cs_Customer::build_from_wc_order( $wc_order );
+            $cs_line_items = Cs_Line_Items::build_from_wc_order( $wc_order );
+            $cs_line_totals = Cs_Line_Totals::build_from_wc_order( $wc_order );
+            $cs_metadata = Cs_Metadata::build_from_wc_order( $wc_order );
+            $cs_invoice = Cs_Invoice::create(array (
+                'total' => $wc_order->get_total() * 100,
+                'currency' => $wc_order->get_order_currency(),
+                'ip_address' => $_SERVER['REMOTE_ADDR'],
+                'return_url' => WC()->api_request_url( 'wc_gateway_cloudswipe' ),
+                'customer' => $cs_customer->toArray(),
+                'line_items' => $cs_line_items->toArray(),
+                'line_totals' => $cs_line_totals->toArray(),
+                'metadata' => $cs_metadata->toArray()
+            ));
 
-        $cs_invoice = new Cs_Invoice();
-        $cs_invoice->remote_order_id = $order_id;
-        $cs_invoice->first_name = $wc_order->billing_first_name;
-        $cs_invoice->last_name = $wc_order->billing_last_name;
-        $cs_invoice->email = $wc_order->billing_email;
-        $cs_invoice->total = number_format( $wc_order->get_total(), 2, '.', '' );
-        $cs_invoice->customer_ip_address = $_SERVER['REMOTE_ADDR'];
-        $cs_invoice->add_meta( 'wc_order_id', $order_id );
-		$cs_invoice->add_meta( 'return_url', WC()->api_request_url( 'wc_gateway_cloudswipe' ) );
-        $cs_invoice->add_meta( 'currency', $wc_order->get_order_currency());
-
-        $this->add_line_items( $cs_invoice, $wc_order );
-        $this->add_line_totals( $cs_invoice, $wc_order );
-        $this->add_addresses( $cs_invoice, $wc_order );
-
-		try {
-            $secret_key = $this->settings['secret_key'];
-			$payment_url = $cs_invoice->create( $secret_key );
+            Cs_Log::write("Invoice: " . print_r($cs_invoice, true));
 
 			$result = array(
 				'result'   => 'success',
-				'redirect' => $payment_url
+				'redirect' => $cs_invoice->links['pay']
 			);
 
 			return $result;
-		} catch ( Cs_Exception $e ) {
-			wc_add_notice( __( 'Secure Payment Error:', 'wc-cs' ) . $e->getMessage(), 'error' );
-		}
-    }
-
-    /**
-     * Add line items to invoice
-     */
-    public function add_line_items( $cs_invoice, $wc_order ) {
-        $items = $wc_order->get_items();
-        foreach( $items as $item ) {
-            $product = $wc_order->get_product_from_item( $item );
-
-            $line_item = array (
-                'name' => $item['name'],
-                'sku'  => $product->get_sku(),
-                'quantity' => $item['qty'],
-                'total' => $wc_order->get_item_subtotal( $item, false, true )
-
-            );
-
-            $cs_invoice->add_line_item( $line_item );
+        } catch ( Cs_Exception $e ) {
+			wc_add_notice( __( 'CloudSwipe Error:', 'wc-cs' ) . $e->getMessage(), 'error' );
         }
     }
 
     /**
-     * Add line totals to invoice
+     * Process payment notification for real after successful invoice payment
      */
-    public function add_line_totals( $cs_invoice, $wc_order ) {
-        $subtotal_label = __( 'Subtotal', 'wc-cs' );
-        $subtotal_total  = number_format( $wc_order->get_subtotal(), 2, '.', '' );
-
-        $shipping_label = __( 'Shipping', 'wc-cs' );
-        $shipping_total = number_format( $wc_order->get_total_shipping(), 2, '.', '' );
-
-        $tax_label      = __( 'Tax', 'wc-cs' );
-        $tax_total      = number_format( $wc_order->get_total_tax(), 2, '.', '' );
-
-        $discount_label = __( 'Discount', 'wc-cs' );
-        $discount_total = number_format( $wc_order->get_total_discount(), 2, '.', '' );
-
-        $line_totals = array (
-            $subtotal_label => $subtotal_total,
-            $shipping_label => $shipping_total,
-            $tax_label      => $tax_total,
-            $discount_label => $discount_total
-        );
-
-        foreach ( $line_totals as $label => $amount ) {
-            if ( $amount > 0 ) {
-                $cs_invoice->add_line_total( $label, $amount );
-            }
-        }
-    }
-
-    public function add_addresses( $cs_invoice, $wc_order ) {
-
-        // Billing address
-        $billing_data = array (
-            'first_name'  => $wc_order->billing_first_name,
-            'last_name'   => $wc_order->billing_last_name,
-            'company'     => $wc_order->billing_company,
-            'address_1'   => $wc_order->billing_address_1,
-            'address_2'   => $wc_order->billing_address_2,
-            'city'        => $wc_order->billing_city,
-            'state'       => $wc_order->billing_state,
-            'postal_code' => $wc_order->billing_postcode,
-            'country'     => $wc_order->billing_country,
-            'phone'       => $wc_order->billing_phone,
-            'email'       => $wc_order->billing_email
-        );
-
-        $cs_invoice->add_address( $billing_data, 'billing' );
-
-        // Shipping address
-        $shipping_data = array (
-            'first_name'  => $wc_order->shipping_first_name,
-            'last_name'   => $wc_order->shipping_last_name,
-            'company'     => $wc_order->shipping_company,
-            'address_1'   => $wc_order->shipping_address_1,
-            'address_2'   => $wc_order->shipping_address_2,
-            'city'        => $wc_order->shipping_city,
-            'state'       => $wc_order->shipping_state,
-            'postal_code' => $wc_order->shipping_postcode,
-            'country'     => $wc_order->shipping_country
-        );
-
-        $cs_invoice->add_address( $shipping_data, 'shipping' );
-    }
-
-    // Process payment notification for real after successful invoice payment
     public function payment_notification() {
-        if ( isset( $_GET['invoice_number'] ) ) {
+        if ( isset( $_GET['invoice_id'] ) ) {
             try {
-                $invoice_number = $_GET['invoice_number'];
-                $secret_key = $this->settings['secret_key'];
-                $cs_api = new Cs_Api();
-                $wc_order_number = $cs_api->find_order_id_by_invoice_number( $invoice_number, $secret_key );
-                $wc_order = wc_get_order( $wc_order_number  );
+                $cs_invoice = Cs_Invoice::get_one( $_GET['invoice_id'] );
+                $wc_order = wc_get_order( $cs_invoice->attributes['metadata']['wc_order_id'] );
 
                 // Mark order complete.
                 $wc_order->payment_complete();
@@ -208,5 +121,4 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
         echo $woocommerce->cart->get_cart_url();
         exit;
     }
-
 }
