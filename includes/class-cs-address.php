@@ -10,13 +10,13 @@ class Cs_Address {
 
         $cs_address->name = $wc_order->get_formatted_billing_full_name();
         $cs_address->company = $wc_address['company'];
-        $cs_address->line1 = $address['address_1'];
-        $cs_address->line2 = $address['address_2'];
-        $cs_address->city = $address['city'];
-        $cs_address->state = $address['state'];
-        $cs_address->zip = $address['postcode'];
-        $cs_address->country = $address['country'];
-        $cs_address->phone = $address['phone'];
+        $cs_address->line1 = $wc_address['address_1'];
+        $cs_address->line2 = $wc_address['address_2'];
+        $cs_address->city = $wc_address['city'];
+        $cs_address->state = $wc_address['state'];
+        $cs_address->zip = $wc_address['postcode'];
+        $cs_address->country = $wc_address['country'];
+        $cs_address->phone = $wc_address['phone'];
 
         return $cs_address;
     }
