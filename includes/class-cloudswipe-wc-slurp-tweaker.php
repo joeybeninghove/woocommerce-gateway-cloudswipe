@@ -25,9 +25,9 @@ class CloudSwipe_WC_Slurp_Tweaker {
     /**
      * Allow slurps to change the title of the slurped page
      *
-     * The slurp request can pass the query string parameter cs-title to
+     * The slurp request can pass the query string parameter cloudswipe-title to
      * change the displayed page title from "Cart" to a custom value. This
-     * filter is only run on the cart page content area. If the cs-title
+     * filter is only run on the cart page content area. If the cloudswipe-title
      * parameter is not in the query string, the title is not modified.
      *
      * @param  string $title
@@ -36,8 +36,8 @@ class CloudSwipe_WC_Slurp_Tweaker {
      */
     public function filter_slurp_title( $title, $id = null ) {
         if ( is_cart() && in_the_loop() ) {
-            if ( isset( $_GET['cs-title'] ) ) {
-                $title = $_GET['cs-title'];
+            if ( isset( $_GET['cloudswipe-title'] ) ) {
+                $title = $_GET['cloudswipe-title'];
             }
         }
 
