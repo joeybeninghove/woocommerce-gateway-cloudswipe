@@ -16,7 +16,7 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_cloudswipe', array( $this, 'payment_notification' ) );
-        add_action( 'woocommerce_api_cs_slurp_url', array( $this, 'slurp_url' ) );
+        add_action( 'woocommerce_api_cloudswipe_slurp_url', array( $this, 'slurp_url' ) );
 
         // Define values set by the user
         $this->title       = $this->get_option( 'title' );
