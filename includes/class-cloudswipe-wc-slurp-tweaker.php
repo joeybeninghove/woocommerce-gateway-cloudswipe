@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Slurp_Tweaker {
+class CloudSwipe_WC_Slurp_Tweaker {
 
     protected static $instance;
 
@@ -46,4 +46,4 @@ class Cs_Slurp_Tweaker {
 
 }
 
-Cs_Slurp_Tweaker::instance();
+CloudSwipe_WC_Slurp_Tweaker::instance();

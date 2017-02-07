@@ -146,7 +146,7 @@ if ( ! class_exists('WC_CloudSwipe') ) {
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-log.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-metadata.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-price.php';
-            include_once WCCS_PATH . 'includes/class-cs-slurp-tweaker.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-slurp-tweaker.php';
             include_once WCCS_PATH . 'includes/class-wc-gateway-cloudswipe.php';
         }
     }
