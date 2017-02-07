@@ -1,0 +1,21 @@
+{
+    "name": "cloudswipe/woocommerce-gateway-cloudswipe",
+    "type": "wordpress-plugin",
+    "description": "CloudSwipe library for WordPress integrations",
+    "license": "MIT",
+    "keywords": ["cloudswipe", "ecommerce", "gateway", "woocommerce", "payments"],
+    "authors": [
+        {
+            "name": "Joey Beninghove",
+            "email": "joey@cloudswipe.com"
+        }
+    ],
+    "require": {
+      "php": ">= 5.6",
+      "cloudswipe/cloudswipe-wp": ">= 0.1"
+    },
+    "require-dev": {},
+    "autoload": {
+        "classmap": ["includes"]
+    }
+}

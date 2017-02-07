@@ -1,7 +1,6 @@
 <?php
 
-class Cs_Log {
-
+class CloudSwipe_WC_Log {
     public static function write( $data ) {
         $backtrace = debug_backtrace();
         $file = $backtrace[0]['file'];
@@ -13,5 +12,4 @@ class Cs_Log {
             file_put_contents( WCCS_PATH . 'log.txt', $out . "\n\n", FILE_APPEND );
         }
     }
-
 }

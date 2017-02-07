@@ -1,0 +1,20 @@
+{
+    "name": "joeybeninghove/json-api-wp-client",
+    "type": "library",
+    "description": "WordPress client library for consuming JSON APIs following the 1.0 spec at jsonapi.org",
+    "license": "MIT",
+    "keywords": ["json", "api", "wordpress"],
+    "authors": [
+        {
+            "name": "Joey Beninghove",
+            "email": "me@joey.io"
+        }
+    ],
+    "require": {
+      "php": ">= 5.6"
+    },
+    "require-dev": {},
+    "autoload": {
+        "classmap": ["src"]
+    }
+}

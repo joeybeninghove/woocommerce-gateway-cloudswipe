@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Line_Items {
+class CloudSwipe_WC_Line_Items {
     public $headers, $rows;
 
     public function __construct() {
@@ -19,7 +19,7 @@ class Cs_Line_Items {
                 $item['name'],
                 $product->get_sku(),
                 $item['qty'],
-                strval( new Cs_Price(
+                strval( new CloudSwipe_WC_Price(
                     $wc_order->get_item_subtotal( $item, false, true ),
                     $wc_order->get_order_currency()
                 ))
@@ -29,7 +29,7 @@ class Cs_Line_Items {
         return $cs_line_items;
     }
 
-    public function toArray() {
+    public function to_array() {
         return array(
             'header' => $this->headers,
             'rows' => $this->rows

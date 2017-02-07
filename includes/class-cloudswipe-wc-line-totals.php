@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Line_Totals {
+class CloudSwipe_WC_Line_Totals {
     public $rows;
 
     public function __construct() {
@@ -10,26 +10,26 @@ class Cs_Line_Totals {
     public static function build_from_wc_order( $wc_order ) {
         $cs_line_totals = new static();
 
-        $subtotal_label = __( 'Subtotal', 'wc-cs' );
-        $subtotal_total = strval( new Cs_Price(
+        $subtotal_label = __( 'Subtotal', 'wc-cloudswipe' );
+        $subtotal_total = strval( new CloudSwipe_WC_Price(
             $wc_order->get_subtotal(),
             $wc_order->get_order_currency()
         ));
 
-        $shipping_label = __( 'Shipping', 'wc-cs' );
-        $shipping_total = strval( new Cs_Price(
+        $shipping_label = __( 'Shipping', 'wc-cloudswipe' );
+        $shipping_total = strval( new CloudSwipe_WC_Price(
             $wc_order->get_total_shipping(),
             $wc_order->get_order_currency()
         ));
 
-        $tax_label = __( 'Tax', 'wc-cs' );
-        $tax_total = strval( new Cs_Price(
+        $tax_label = __( 'Tax', 'wc-cloudswipe' );
+        $tax_total = strval( new CloudSwipe_WC_Price(
             $wc_order->get_total_tax(),
             $wc_order->get_order_currency()
         ));
 
-        $discount_label = __( 'Discount', 'wc-cs' );
-        $discount_total = strval( new Cs_Price(
+        $discount_label = __( 'Discount', 'wc-cloudswipe' );
+        $discount_total = strval( new CloudSwipe_WC_Price(
             $wc_order->get_total_discount(),
             $wc_order->get_order_currency()
         ));
@@ -42,7 +42,7 @@ class Cs_Line_Totals {
         return $cs_line_totals;
     }
 
-    public function toArray() {
+    public function to_array() {
         return array(
             'rows' => $this->rows
         );

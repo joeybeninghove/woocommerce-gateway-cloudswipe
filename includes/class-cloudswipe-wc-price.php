@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Price {
+class CloudSwipe_WC_Price {
     public $amount, $currency_code;
 
 	public function __construct( $amount, $currency_code ) {

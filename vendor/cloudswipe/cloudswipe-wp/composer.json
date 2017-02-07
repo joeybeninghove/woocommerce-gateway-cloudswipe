@@ -1,0 +1,21 @@
+{
+    "name": "cloudswipe/cloudswipe-wp",
+    "type": "library",
+    "description": "CloudSwipe library for WordPress integrations",
+    "license": "MIT",
+    "keywords": ["json", "api", "wordpress", "cloudswipe"],
+    "authors": [
+        {
+            "name": "Joey Beninghove",
+            "email": "joey@cloudswipe.com"
+        }
+    ],
+    "require": {
+      "php": ">= 5.6",
+      "joeybeninghove/json-api-wp-client": ">= 0.1"
+    },
+    "require-dev": {},
+    "autoload": {
+        "classmap": ["src"]
+    }
+}

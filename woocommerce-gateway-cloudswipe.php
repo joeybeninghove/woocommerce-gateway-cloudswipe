@@ -95,7 +95,7 @@ if ( ! class_exists('WC_CloudSwipe') ) {
         public function dependency_notice() {
             ?>
             <div class="error">
-                <p><?php _e( 'CloudSwipe for WooCommerce requires the WooCommerce plugin to be installed and activated.', 'wc-cs' ); ?></p>
+                <p><?php _e( 'CloudSwipe for WooCommerce requires the WooCommerce plugin to be installed and activated.', 'wc-cloudswipe' ); ?></p>
             </div>
             <?php
         }
@@ -104,10 +104,10 @@ if ( ! class_exists('WC_CloudSwipe') ) {
          * Load the plugin text domain for translation.
          */
         public function load_plugin_textdomain() {
-            $locale = apply_filters( 'plugin_locale', get_locale(), 'wc-cs' );
+            $locale = apply_filters( 'plugin_locale', get_locale(), 'wc-cloudswipe' );
             $language_path = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
 
-            load_plugin_textdomain( 'wc-cs', false, $language_path );
+            load_plugin_textdomain( 'wc-cloudswipe', false, $language_path );
         }
 
         /**
@@ -137,16 +137,15 @@ if ( ! class_exists('WC_CloudSwipe') ) {
         }
 
         private function includes() {
-            include_once WCCS_PATH . 'includes/class-cs-address.php';
-            include_once WCCS_PATH . 'includes/class-cs-customer.php';
-            include_once WCCS_PATH . 'includes/class-cs-env.php';
-            include_once WCCS_PATH . 'includes/class-cs-exception.php';
-            include_once WCCS_PATH . 'includes/class-cs-invoice.php';
-            include_once WCCS_PATH . 'includes/class-cs-line-items.php';
-            include_once WCCS_PATH . 'includes/class-cs-line-totals.php';
-            include_once WCCS_PATH . 'includes/class-cs-log.php';
-            include_once WCCS_PATH . 'includes/class-cs-metadata.php';
-            include_once WCCS_PATH . 'includes/class-cs-price.php';
+            include_once WCCS_PATH . 'vendor/autoload.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-address.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-customer.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-invoice.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-line-items.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-line-totals.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-log.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-metadata.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-price.php';
             include_once WCCS_PATH . 'includes/class-cs-slurp-tweaker.php';
             include_once WCCS_PATH . 'includes/class-wc-gateway-cloudswipe.php';
         }

@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Address {
+class CloudSwipe_WC_Address {
     public $name, $company, $line1, $line2,
         $city, $state, $zip, $country, $phone;
 
@@ -21,7 +21,7 @@ class Cs_Address {
         return $cs_address;
     }
 
-    public function toArray() {
+    public function to_array() {
         return array(
             'name' => $this->name,
             'company' => $this->company,

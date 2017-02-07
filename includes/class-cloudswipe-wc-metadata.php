@@ -1,6 +1,6 @@
 <?php
 
-class Cs_Metadata {
+class CloudSwipe_WC_Metadata {
     public $data;
 
     public function __construct() {
@@ -15,7 +15,7 @@ class Cs_Metadata {
         return $cs_metadata;
     }
 
-    public function toArray() {
+    public function to_array() {
         return $this->data;
     }
 }
