@@ -22,7 +22,7 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
         $this->title       = $this->get_option( 'title' );
         $this->description = $this->get_option( 'description' );
 
-        CloudSwipe_Wp::set_environment( "development" );
+        CloudSwipe_Wp::set_environment( "production" );
         CloudSwipe_Wp::set_secret_key( $this->settings['secret_key'] );
     }
 
