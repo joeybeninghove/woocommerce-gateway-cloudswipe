@@ -16,6 +16,8 @@ Accept credit card payments securely on your WooCommerce store
 A secure and PCI Compliant approach to accepting payments for your WooCommerce
 store.
 
+[youtube https://www.youtube.com/watch?v=VCLPkyPobqk]
+
 = Features =
 
 - Built-in payment gateways such as Stripe, PayPal, Authorize.Net and more
