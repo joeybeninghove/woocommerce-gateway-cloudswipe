@@ -4,7 +4,7 @@ Donate link: https://cloudswipe.com
 Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
