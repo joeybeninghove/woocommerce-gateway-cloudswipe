@@ -67,7 +67,7 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
             $cs_metadata = CloudSwipe_WC_Metadata::build_from_wc_order( $wc_order );
             $cs_invoice = CloudSwipe_WC_Invoice::create(array (
                 'total' => $wc_order->get_total() * 100,
-                'currency' => $wc_order->get_order_currency(),
+                'currency' => $wc_order->get_currency(),
                 'ip_address' => $_SERVER['REMOTE_ADDR'],
                 'return_url' => WC()->api_request_url( 'wc_gateway_cloudswipe' ),
                 'customer' => $cs_customer->to_array(),
@@ -85,7 +85,7 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
 
 			return $result;
         } catch ( Json_Api_Wp_Exception $e ) {
-			wc_add_notice( __( 'CloudSwipe Error:', 'wc-cloudswipe' ) . $e->getMessage(), 'error' );
+			wc_add_notice( __( 'CloudSwipe Error: ', 'wc-cloudswipe' ) . $e->get_message(), 'error' );
         }
     }
 

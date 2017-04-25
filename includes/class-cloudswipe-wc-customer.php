@@ -7,7 +7,7 @@ class CloudSwipe_WC_Customer {
         $cs_customer = new static();
 
         $cs_customer->name = $wc_order->get_formatted_billing_full_name();
-        $cs_customer->email = $wc_order->billing_email;
+        $cs_customer->email = $wc_order->get_billing_email();
         $cs_customer->billing_address =
             CloudSwipe_WC_Address::build_from_wc_order(
                 $wc_order, 'billing'

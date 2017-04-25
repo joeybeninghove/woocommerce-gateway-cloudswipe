@@ -21,7 +21,7 @@ class CloudSwipe_WC_Line_Items {
                 $item['qty'],
                 strval( new CloudSwipe_WC_Price(
                     $wc_order->get_item_subtotal( $item, false, true ),
-                    $wc_order->get_order_currency()
+                    $wc_order->get_currency()
                 ))
             );
         }

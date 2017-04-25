@@ -10,7 +10,7 @@ class CloudSwipe_WC_Metadata {
     public static function build_from_wc_order( $wc_order ) {
         $cs_metadata = new static();
 
-        $cs_metadata->data['wc_order_id'] = $wc_order->id;
+        $cs_metadata->data['wc_order_id'] = $wc_order->get_id();
 
         return $cs_metadata;
     }

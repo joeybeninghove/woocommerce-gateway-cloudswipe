@@ -140,6 +140,7 @@ if ( ! class_exists('WC_CloudSwipe') ) {
             include_once WCCS_PATH . 'vendor/autoload.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-address.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-customer.php';
+            include_once WCCS_PATH . 'includes/class-cloudswipe-wc-exception.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-invoice.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-line-items.php';
             include_once WCCS_PATH . 'includes/class-cloudswipe-wc-line-totals.php';
