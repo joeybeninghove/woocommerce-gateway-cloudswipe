@@ -72,6 +72,10 @@ None
 
 == Changelog ==
 
+= 1.0.1 =
+
+- Fixing missing exception and deprecation warnings for WooCommerce 3.0
+
 = 1.0.0 =
 
 - Initial release
