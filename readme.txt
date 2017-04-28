@@ -18,10 +18,14 @@ A secure and PCI Compliant approach to accepting payments for your WooCommerce s
 
 = Features =
 
-- Built-in payment gateways such as Stripe, PayPal, Authorize.Net and more
-- SSL included
+- Support for over 150 payment gateways including Authorize.net, Stripe, PayPal
+  and lots more
 - Clone your WooCommerce theme to use as your hosted payment page
-- English, French and Spanish translations
+- Custom subdomain
+- SSL included
+- Unlimited Transactions
+- No Transaction Fees
+- English, French and Spanish translations with more coming
 
 == Screenshots ==
  
