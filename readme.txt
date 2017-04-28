@@ -1,7 +1,7 @@
 === WooCommerce CloudSwipe Payments ===
 Contributors: Reality66
 Donate link: https://cloudswipe.com
-Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments
+Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments, stripe, paypal
 Requires at least: 3.5
 Tested up to: 4.7
 Stable tag: 1.0.1
