@@ -18,8 +18,7 @@ A secure and PCI Compliant approach to accepting payments for your WooCommerce s
 
 = Features =
 
-- Support for over 150 payment gateways including Authorize.net, Stripe, PayPal
-  and lots more
+- Support for over 150 payment gateways including Authorize.net, Stripe, PayPal and lots more
 - Clone your WooCommerce theme to use as your hosted payment page
 - Custom subdomain
 - SSL included
