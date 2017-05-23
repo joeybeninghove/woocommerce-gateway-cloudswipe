@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce CloudSwipe Payments
 Plugin URI: https://wordpress.org/plugins/woocommerce-cloudswipe
 Description: Accept credit card payments securely on your WooCommerce store
-Version: 1.0.1
+Version: 1.0.2
 Author: CloudSwipe
 Author URI: https://cloudswipe.com
 
