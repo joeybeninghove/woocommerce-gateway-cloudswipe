@@ -4,7 +4,7 @@ Donate link: https://cloudswipe.com
 Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments, stripe, paypal
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,6 +74,10 @@ PCI Compliance is a set of requirements that your business needs to meet in orde
 None
 
 == Changelog ==
+
+= 1.0.2 =
+
+- Fix issue with billing address name being used as the shipping address name on invoices created in CloudSwipe from WooCommerce.
 
 = 1.0.1 =
 
