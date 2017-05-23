@@ -8,7 +8,12 @@ class CloudSwipe_WC_Address {
         $cs_address = new static();
         $wc_address = $wc_order->get_address( $address_type );
 
-        $cs_address->name = $wc_order->get_formatted_billing_full_name();
+        if ( $address_type == "billing" ) {
+            $cs_address->name = $wc_order->get_formatted_billing_full_name();
+        } elseif ( $address_type == "shipping") {
+            $cs_address->name = $wc_order->get_formatted_shipping_full_name();
+        }
+
         $cs_address->company = $wc_address['company'];
         $cs_address->line1 = $wc_address['address_1'];
         $cs_address->line2 = $wc_address['address_2'];
