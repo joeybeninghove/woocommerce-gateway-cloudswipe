@@ -24,6 +24,8 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
 
         CloudSwipe_Wp::set_environment( "production" );
         CloudSwipe_Wp::set_secret_key( $this->settings['secret_key'] );
+
+        CloudSwipe_WC_Log::debug( 'Loaded CloudSwipe in ' . CloudSwipe_Wp::$environment . ' mode' );
     }
 
     public function init_form_fields() {
@@ -76,7 +78,7 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
                 'metadata' => $cs_metadata->to_array()
             ));
 
-            CloudSwipe_WC_Log::write("Invoice: " . print_r($cs_invoice, true));
+            CloudSwipe_WC_Log::debug( 'Created Invoice: ' . print_r($cs_invoice, true) );
 
 			$result = array(
 				'result'   => 'success',
@@ -84,7 +86,8 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
 			);
 
 			return $result;
-        } catch ( Json_Api_Wp_Exception $e ) {
+        } catch ( Exception $e ) {
+            CloudSwipe_WC_Log::error( $e->get_message() );
 			wc_add_notice( __( 'CloudSwipe Error: ', 'wc-cloudswipe' ) . $e->get_message(), 'error' );
         }
     }
@@ -94,21 +97,29 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
      */
     public function payment_notification() {
         if ( isset( $_GET['invoice_id'] ) ) {
+            CloudSwipe_WC_Log::debug( 'Processing Payment Notification, Invoice ID: ' . $_GET['invoice_id'] );
+
             try {
                 $cs_invoice = CloudSwipe_WC_Invoice::get_one( $_GET['invoice_id'] );
                 $wc_order = wc_get_order( $cs_invoice->attributes['metadata']['wc_order_id'] );
 
                 // Mark order complete.
+                CloudSwipe_WC_Log::debug( 'Marking Order Complete: ' . $wc_order->get_id() );
                 $wc_order->payment_complete();
 
                 // Empty cart and clear session.
+                CloudSwipe_WC_Log::debug( 'Emptying Cart' );
                 WC()->cart->empty_cart();
 
+                CloudSwipe_WC_Log::debug( 'Redirecting To: ' . $this->get_return_url( $wc_order ) );
                 wp_redirect( $this->get_return_url( $wc_order ) );
                 exit;
 
             } catch ( CloudSwipe_WC_Exception $e ) {
+                CloudSwipe_WC_Log::error( $e->get_message() );
                 wc_add_notice( __( 'Payment error:', 'wc-cloudswipe' ) . $e->getMessage(), 'error' );
+            } catch ( Exception $e ) {
+                CloudSwipe_WC_Log::error( $e->get_message() );
             }
         } elseif ( isset( $_POST['page_id'] ) ) {
             if ( isset( $_POST['access_key'] ) && $_POST['access_key'] == $this->access_key ) {
@@ -118,6 +129,8 @@ class WC_Gateway_CloudSwipe extends WC_Payment_Gateway {
     }
 
     public function slurp_url() {
+        CloudSwipe_WC_Log::debug( "Retrieving slurp URL" );
+
         global $woocommerce;
         echo $woocommerce->cart->get_cart_url();
         exit;
