@@ -75,6 +75,10 @@ None
 
 == Changelog ==
 
+= 1.0.3 =
+
+- Add logging support allowing the logs to be viewed in the WooCommerce System Status area to help with troubleshooting 
+
 = 1.0.2 =
 
 - Fix issue with billing address name being used as the shipping address name on invoices created in CloudSwipe from WooCommerce.
