@@ -4,7 +4,7 @@ Donate link: https://cloudswipe.com
 Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments, stripe, paypal
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,10 +75,13 @@ None
 
 == Changelog ==
 
+= 1.0.4 =
+
+- Isolate the WooCommerce page title from the menu items when using the_title filter to customize the slurp page title.
+
 = 1.0.3 =
 
 - Add logging support allowing the logs to be viewed in the WooCommerce System Status area to help with troubleshooting 
-- Isolate the WooCommerce page title from the menu items when using the_title filter to customize the slurp page title.
 
 = 1.0.2 =
 
