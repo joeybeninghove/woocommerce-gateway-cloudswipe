@@ -78,6 +78,7 @@ None
 = 1.0.3 =
 
 - Add logging support allowing the logs to be viewed in the WooCommerce System Status area to help with troubleshooting 
+- Isolate the WooCommerce page title from the menu items when using the_title filter to customize the slurp page title.
 
 = 1.0.2 =
 
