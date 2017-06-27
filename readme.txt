@@ -4,7 +4,7 @@ Donate link: https://cloudswipe.com
 Tags: mijireh, ecommerce, e-commerce, shopping, cart, store, cloudswipe, sell, sales, shopping cart, woocommerce, payment gateway, payments, stripe, paypal
 Requires at least: 3.5
 Tested up to: 4.7
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -74,6 +74,10 @@ PCI Compliance is a set of requirements that your business needs to meet in orde
 None
 
 == Changelog ==
+
+= 1.0.5 =
+
+- Move title query for slurp tweaks further down in the WordPress actions chain to prevent null post errors
 
 = 1.0.4 =
 

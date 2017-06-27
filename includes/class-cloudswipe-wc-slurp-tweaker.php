@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * The incoming URL can set the title for the slurped page like this:
+ * http://site.com/cart/?cloudswipe-title=Receipt
+ */
 class CloudSwipe_WC_Slurp_Tweaker {
 
     protected static $instance;
@@ -22,11 +25,14 @@ class CloudSwipe_WC_Slurp_Tweaker {
     }
 
     public function __construct() {
+        add_action( 'the_post',  array( $this, 'set_title_info' ) );
+        add_filter( 'the_title', array( $this, 'filter_slurp_title' ) );
+    }
+
+    public function set_title_info() {
         $cart_page_id = get_option( 'woocommerce_cart_page_id' );
         self::$cart_page_title = get_the_title( $cart_page_id );
         self::$modified_title = false;
-
-        add_filter( 'the_title', array( $this, 'filter_slurp_title' ) );
     }
 
     /**
